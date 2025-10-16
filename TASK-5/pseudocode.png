@@ -1,0 +1,133 @@
+. SİSTEM BAŞLAT
+. “Akıllı Ev Güvenlik Sistemine Hoş Geldiniz” mesajını göster
+. Tüm sensörleri ve cihazları başlat:
+    .. Kapı sensörü
+    .. Pencere sensörü
+    .. Hareket sensörü
+    .. Kamera sistemi
+    .. Alarm sireni
+    .. Duman ve gaz dedektörleri
+. Ağ bağlantısı kontrol et (Wi-Fi veya GSM)
+. Eğer bağlantı yoksa:
+    .. Uyarı: “Ağ bağlantısı kurulamadı.”
+    .. Yeniden dene veya sınırlı modda çalış
+
+-----------------------------------------------------
+. KULLANICI GİRİŞİ
+. Kullanıcıdan PIN veya parmak izi al
+. Kimlik doğrulaması yap
+. Eğer doğrulama başarısızsa:
+    .. “Yetkisiz erişim” uyarısı ver
+    .. Alarmı hazır moda al
+    .. 3 hatalı girişten sonra sistemi kilitle ve bildirim gönder (kullanıcıya ve merkeze)
+. Eğer doğrulama başarılıysa:
+    .. Ana menüyü göster
+
+-----------------------------------------------------
+. ANA MENÜ
+. “Bir işlem seçiniz” mesajını göster:
+    [1] Sistemi Etkinleştir (Evden çıkış modu)
+    [2] Sistemi Devre Dışı Bırak (Evdeyim modu)
+    [3] Canlı Kamera Görüntüsü
+    [4] Sensör Durumlarını Görüntüle
+    [5] Ayarlar
+    [6] Çıkış
+
+. Seçimi al
+. Eğer seçim == 1 → EtkinleştirProsedürü
+. Eğer seçim == 2 → DevreDışıProsedürü
+. Eğer seçim == 3 → KameraProsedürü
+. Eğer seçim == 4 → SensörDurumProsedürü
+. Eğer seçim == 5 → AyarlarProsedürü
+. Eğer seçim == 6 → SistemSonu
+
+-----------------------------------------------------
+. ETKİNLEŞTİR PROSEDÜRÜ (Evden çıkış modu)
+. “Sistem 10 saniye içinde etkinleşecek.” mesajını göster
+. Geri sayım başlat (10...9...8...)
+. Tüm kapı/pencere sensörlerini aktif et
+. Hareket sensörlerini aktif et
+. Kameraları gece moduna al
+. Alarm sistemini hazır konuma getir
+. Kullanıcı evden çıkınca kapı kilitlerini otomatik kapat
+. “Sistem etkinleştirildi.” mesajı göster
+. Sistemi izleme moduna al
+
+-----------------------------------------------------
+. İZLEME MODU (Aktif güvenlik izleme)
+. Sonsuz döngü:
+    .. Eğer kapı veya pencere açılırsa:
+        ... Alarmı tetikle
+        ... Kamera kaydını başlat
+        ... Bildirim gönder (Kullanıcı + Güvenlik Merkezi)
+    .. Eğer hareket algılanırsa:
+        ... Kamera kaydını başlat
+        ... Işıkları aç
+        ... Alarmı 5 saniye içinde çal
+    .. Eğer duman veya gaz algılanırsa:
+        ... “Acil durum!” mesajı üret
+        ... Alarmı çal
+        ... Havalandırmayı aç
+        ... Bildirim gönder
+        ... Gerekirse acil servis çağır
+    .. Eğer kullanıcı mobil uygulamadan “Sistemi Devre Dışı Bırak” komutu gönderirse:
+        ... Sistemi pasif moda geçir
+        ... Ana menüye dön
+    .. Her 5 dakikada bir tüm sensör durumlarını kontrol et
+    .. Sensör arızası varsa raporla
+
+-----------------------------------------------------
+. DEVRE DIŞI PROSEDÜRÜ (Evdeyim modu)
+. “Sistem devre dışı bırakılıyor...” mesajını göster
+. Tüm sensörleri pasif hale getir
+. Kameraları bekleme moduna al
+. Alarmı devre dışı bırak
+. “Sistem şu anda pasif durumda.” mesajı göster
+. Ana menüye dön
+
+-----------------------------------------------------
+. KAMERA PROSEDÜRÜ
+. Mevcut kameraları listele (Salon, Giriş, Bahçe, Garaj)
+. Kullanıcıdan izlemek istediği kamerayı seçmesini iste
+. Seçilen kameranın canlı görüntüsünü göster
+. İsterse kayıt başlat veya durdur seçeneği sun
+. Ana menüye dön
+
+-----------------------------------------------------
+. SENSÖR DURUMU PROSEDÜRÜ
+. Tüm sensörlerin güncel durumlarını göster:
+    (Kapı: Kapalı/Açık, Pencere: Kapalı/Açık, Hareket: Var/Yok, Duman: Normal/Uyarı)
+. Herhangi bir arıza varsa:
+    .. “Sensör arızası algılandı” uyarısı göster
+. Ana menüye dön
+
+-----------------------------------------------------
+. AYARLAR PROSEDÜRÜ
+. Seçenekleri göster:
+    [1] PIN Kodu Değiştir
+    [2] Bildirim Tercihleri
+    [3] Wi-Fi Ayarları
+    [4] Ana Menüye Dön
+
+. Kullanıcı seçimi al
+. İşleme göre gerekli değişiklikleri uygula
+. Onay mesajı göster
+. Ana menüye dön
+
+-----------------------------------------------------
+. ALARM TETİKLEME
+. Sireni 30 saniye boyunca çal
+. Kamera kaydını başlat
+. Işıkları yak
+. Olayı kayıt altına al (Tarih, Saat, Sensör Tipi)
+. Mobil uygulamaya bildirim gönder
+. Gerekirse güvenlik merkezine uyarı gönder
+
+-----------------------------------------------------
+. SİSTEM SONU
+. “Sistem kapatılıyor...” mesajı göster
+. Tüm cihaz bağlantılarını kes
+. Oturumu kapat
+. Log dosyalarını kaydet
+. “Güvenlik sistemi durduruldu.” mesajı göster
+. SİSTEMİ KAPAT
